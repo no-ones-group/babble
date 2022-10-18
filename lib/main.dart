@@ -1,3 +1,6 @@
+import 'package:babble/ui/root_controller.dart';
+import 'package:babble/ui/sidebar/sidebar_controller.dart';
+import 'package:babble/ui/space/chat_space/chat_space_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
