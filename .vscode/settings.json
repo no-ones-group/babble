@@ -1,3 +1,4 @@
 {
-    "dart.flutterSdkPath": "D:\\finalyearproject\\flutter"
+    "dart.flutterSdkPath": "D:\\finalyearproject\\flutter",
+    "java.configuration.updateBuildConfiguration": "disabled"
 }

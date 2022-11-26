@@ -1,4 +1,4 @@
-import 'package:babble/ui/root.dart';
+import 'package:babble/onboarding/log_in.dart';
 import 'package:babble/ui/root_controller.dart';
 import 'package:babble/ui/sidebar/sidebar_controller.dart';
 import 'package:babble/ui/space/chat_space/chat_space_controller.dart';
@@ -22,7 +22,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Root(),
+      home: const SafeArea(
+        child: LogIn(),
+      ),
     );
   }
 }

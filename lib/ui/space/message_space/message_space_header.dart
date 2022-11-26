@@ -1,4 +1,3 @@
-import 'package:babble/models/user.dart';
 import 'package:flutter/material.dart';
 
 class MessageSpaceHeader extends StatelessWidget {
