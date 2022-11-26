@@ -1,3 +1,4 @@
+import 'package:babble/ui/root.dart';
 import 'package:flutter/material.dart';
 
 class LogIn extends StatelessWidget {
@@ -54,10 +55,16 @@ class LogIn extends StatelessWidget {
                 height: 50,
                 width: 200,
                 color: Colors.blue,
-                child: const ElevatedButton(
+                child: ElevatedButton(
                   // onPressed: () {},
-                  onPressed: null,
-                  child: Text(
+                  onPressed: (() {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => Root()),
+                        (route) => false);
+                  }),
+                  // onPressed: () {},
+                  child: const Text(
                     'Submit',
                     style: TextStyle(color: Colors.white),
                   ),

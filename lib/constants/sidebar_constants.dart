@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SidebarConstants {
-  final double _mobileSidebarIconSize = 40;
-  final double _webSidebarIconSize = 50;
-  
   bool get isMobileScreen => Get.size.width <= 500;
 
-  double get sidebarIconSize =>
-      isMobileScreen ? _mobileSidebarIconSize : _webSidebarIconSize;
+  double get sidebarIconSize => 50;
 
   // Colors for Sidebar and SidebarIcon
   Color get sidebarColor => const Color.fromRGBO(3, 102, 102, 1);

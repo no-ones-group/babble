@@ -1,5 +1,5 @@
 import 'package:babble/constants/root_constants.dart';
-import 'package:babble/constants/sidebar_constants.dart';
+import 'package:babble/constants/space_root_constants.dart';
 import 'package:flutter/material.dart';
 
 class SpaceRoot extends StatelessWidget {
@@ -17,14 +17,13 @@ class SpaceRoot extends StatelessWidget {
     return SizedBox(
       width: RootConstants().spaceWidth,
       height: MediaQuery.of(context).size.height,
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: RootConstants().spaceWidth,
-        child: Column(
-          children: [
-            body,
-          ],
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(title),
+          toolbarHeight: SpaceRootConstants().headerHeight,
         ),
+        body: body,
       ),
     );
   }
