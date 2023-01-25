@@ -11,8 +11,7 @@ class ProfileSpaceRoot extends StatelessWidget {
       child: Column(
         children: [
           Text(user.username),
-          Text(user.firstname),
-          Text(user.lastname),
+          Text(user.displayName),
         ],
       ),
     );

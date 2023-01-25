@@ -7,19 +7,22 @@
         {
             "name": "babble",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": ["--dart-define=env=debug"]
         },
         {
             "name": "babble (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "args": ["--dart-define=env=profile"]
         },
         {
             "name": "babble (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            "args": ["--dart-define=env=release"]
         }
     ]
 }

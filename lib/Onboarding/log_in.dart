@@ -1,8 +1,19 @@
+// ignore_for_file: must_be_immutable
+
+import 'dart:developer';
+
+import 'package:babble/api/authentication.dart';
 import 'package:babble/ui/root.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LogIn extends StatelessWidget {
-  const LogIn({super.key});
+  bool shouldShowOTPWindow = false;
+  late ConfirmationResult _confirmationResult;
+  UserCredential? _userCredential;
+
+  LogIn({super.key});
+  final Authentication _authentication = Authentication();
 
   @override
   Widget build(BuildContext context) {
@@ -24,51 +35,65 @@ class LogIn extends StatelessWidget {
               ),
               child: Image.asset('assets/babble_logo.png'),
             ),
-            const SizedBox(
+            SizedBox(
               // <-- SEE HERE
               width: 400,
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'User Name',
-                      hintText: 'Enter valid mail id as abc@gmail.com'),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'User Name',
+                    hintText: 'Enter valid mail id as abc@gmail.com',
+                  ),
+                  onSubmitted: (value) async {
+                    shouldShowOTPWindow = true;
+                    _confirmationResult =
+                        await _authentication.signInWeb(value);
+                  },
                 ),
               ),
             ),
-            const SizedBox(
+            SizedBox(
               // <-- SEE HERE
               width: 400,
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: TextField(
                   obscureText: true,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                      hintText: 'Enter your secure password'),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                    hintText: 'Enter your secure password',
+                  ),
+                  onSubmitted: (value) async {
+                    _userCredential = await _authentication.verify(
+                        _confirmationResult, value);
+                    print(_userCredential!.additionalUserInfo);
+                  },
                 ),
               ),
             ),
             Container(
-                height: 50,
-                width: 200,
-                color: Colors.blue,
-                child: ElevatedButton(
-                  // onPressed: () {},
-                  onPressed: (() {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => Root()),
-                        (route) => false);
-                  }),
-                  // onPressed: () {},
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )),
+              height: 50,
+              width: 200,
+              color: Colors.blue,
+              child: ElevatedButton(
+                // onPressed: () {},
+                onPressed: (() {
+                  if (_userCredential == null) return;
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => Root()),
+                      (route) => false);
+                }),
+                // onPressed: () {},
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
             const SizedBox(
               height: 130,
             ),
