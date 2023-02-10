@@ -1,4 +1,5 @@
-import 'package:babble/api/authentication.dart';
+import 'package:babble/Onboarding/user_details_form.dart';
+import 'package:babble/api/authentication_api.dart';
 import 'package:babble/ui/root.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,7 +29,7 @@ class NewOTPScreen extends StatelessWidget {
                 ),
               ),
               FutureBuilder(
-                future: Authentication().signInWeb(phoneNumber),
+                future: AuthenticationAPI().signInWeb(phoneNumber),
                 builder: ((context, snapshot) {
                   return TextField(
                     style: const TextStyle(
@@ -37,9 +38,9 @@ class NewOTPScreen extends StatelessWidget {
                     onSubmitted: (value) async {
                       if (snapshot.hasData) {
                         final navigator = Navigator.of(context);
-                        await Authentication().verify(snapshot.data!, value);
-                        navigator.push(
-                            MaterialPageRoute(builder: ((context) => Root())));
+                        await AuthenticationAPI().verify(snapshot.data!, value);
+                        navigator.push(MaterialPageRoute(
+                            builder: ((context) => UserDetailsForm())));
                       }
                     },
                   );

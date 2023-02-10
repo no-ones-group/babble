@@ -2,8 +2,8 @@ import 'package:babble/Onboarding/new_otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NewLogin extends StatelessWidget {
-  const NewLogin({super.key});
+class NewLoginScreen extends StatelessWidget {
+  const NewLoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

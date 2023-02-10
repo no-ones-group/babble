@@ -14,7 +14,7 @@ class RootController extends GetxController {
     const ProfileSpaceRoot(
       user: User(
         id: '1',
-        username: 'username',
+        fullName: 'username',
         displayName: 'displayName',
       ),
     ),

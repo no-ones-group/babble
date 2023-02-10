@@ -10,7 +10,7 @@ class ProfileSpaceRoot extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Text(user.username),
+          Text(user.fullName),
           Text(user.displayName),
         ],
       ),

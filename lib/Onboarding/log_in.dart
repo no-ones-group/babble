@@ -2,7 +2,7 @@
 
 import 'dart:developer';
 
-import 'package:babble/api/authentication.dart';
+import 'package:babble/api/authentication_api.dart';
 import 'package:babble/ui/root.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class LogIn extends StatelessWidget {
   UserCredential? _userCredential;
 
   LogIn({super.key});
-  final Authentication _authentication = Authentication();
+  final AuthenticationAPI _authentication = AuthenticationAPI();
 
   @override
   Widget build(BuildContext context) {
