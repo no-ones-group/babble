@@ -1,11 +1,11 @@
-import 'package:babble/models/message.dart';
+import 'package:babble/models/message_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 
 class MessageAPI {
   var firebaseFirestoreInstance = FirebaseFirestore.instance;
 
-  void sendMessage(Message msg) async {
+  void sendMessage(MessageModel msg) async {
     String uuid = const Uuid().v1();
     await firebaseFirestoreInstance.collection('Message').doc(uuid).set({
       'id': uuid,

@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       home: SafeArea(
-        child: configuration == Configuration.profile
+        child: configuration == Configuration.debug
             ? Root()
             : const NewLoginScreen(),
       ),

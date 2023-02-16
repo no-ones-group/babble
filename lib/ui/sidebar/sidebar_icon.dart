@@ -37,7 +37,7 @@ class SidebarIcon extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: _rootController.pageIndex.value == id ||
+              color: _sidebarController.selectedSidebarItemId.value == id ||
                       _sidebarController.hoveredId.value == id
                   ? SidebarConstants().sidebarIconEventBGColor
                   : SidebarConstants().sidebarIconBGColor,
@@ -49,14 +49,16 @@ class SidebarIcon extends StatelessWidget {
                 child: icon == null
                     ? HeroIcon(
                         hasNotification ? notifHeroIcon! : heroIcon!,
-                        color: _rootController.pageIndex.value == id ||
+                        color: _sidebarController.selectedSidebarItemId.value ==
+                                    id ||
                                 _sidebarController.hoveredId.value == id
                             ? SidebarConstants().sidebarIconEventColor
                             : SidebarConstants().sidebarIconColor,
                       )
                     : Icon(
                         hasNotification ? notifIcon! : icon!,
-                        color: _rootController.pageIndex.value == id ||
+                        color: _sidebarController.selectedSidebarItemId.value ==
+                                    id ||
                                 _sidebarController.hoveredId.value == id
                             ? SidebarConstants().sidebarIconEventColor
                             : SidebarConstants().sidebarIconColor,

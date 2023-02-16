@@ -18,11 +18,16 @@ class Root extends StatelessWidget {
           color: SidebarConstants().sidebarColor,
           child: Row(
             children: [
-              SidebarRoot(),
-              SpaceRoot(
-                title:
-                    _rootController.pageTitles[_rootController.pageIndex.value],
-                body: _rootController.pages[_rootController.pageIndex.value],
+              Align(
+                alignment: Alignment.centerLeft,
+                child: SidebarRoot(),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: SpaceRoot(
+                  title: _rootController.pageTitle.value,
+                  body: _rootController.pageContent,
+                ),
               ),
             ],
           ),
