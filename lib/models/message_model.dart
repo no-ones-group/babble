@@ -31,3 +31,10 @@ enum MessageType {
   video,
   audio,
 }
+
+enum ReadReceipt {
+  seen,
+  delivered,
+  sent,
+  notSent,
+}
