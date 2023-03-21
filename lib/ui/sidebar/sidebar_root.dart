@@ -34,7 +34,7 @@ class SidebarRoot extends StatelessWidget {
                   notifIcon: Iconsax.message_notif,
                   onTap: () {
                     _sidebarController.selectedSidebarItemId.value = 0;
-                    _rootController.setPage(const ChatSpaceRoot(), 'Chats');
+                    _rootController.setPage(ChatSpaceRoot(), 'Chats');
                   },
                   hasNotification: _sidebarController.chatHasNotification.value,
                 ),
@@ -43,7 +43,7 @@ class SidebarRoot extends StatelessWidget {
                   icon: Iconsax.profile_2user,
                   onTap: () {
                     _sidebarController.selectedSidebarItemId.value = 1;
-                    _rootController.setPage(const ChatSpaceRoot(), 'Users');
+                    _rootController.setPage(ChatSpaceRoot(), 'Users');
                   },
                 ),
               ],
@@ -65,8 +65,7 @@ class SidebarRoot extends StatelessWidget {
                   onTap: () {
                     _sidebarController.selectedSidebarItemId.value = 3;
                     _rootController.setPage(
-                        ProfileSpaceRoot(user: _rootController.user),
-                        'Profile Settings');
+                        const ProfileSpaceRoot(), 'Profile Settings');
                   },
                 ),
                 const SizedBox(

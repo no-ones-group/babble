@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 class RootController extends GetxController {
   var pageTitle = ''.obs;
+  String loggedInUserPhoneNumber = 'e6c0fb70-a57f-11ed-8c9c-ad33c9494c13';
   Widget pageContent = const SizedBox(
     child: Center(
       child: Text('Welcome to Babble Land!'),
@@ -22,18 +23,6 @@ class RootController extends GetxController {
     fullName: 'username2',
     displayName: 'displayName2',
   );
-  var pages = [
-    const ChatSpaceRoot(),
-    const SettingSpaceRoot(),
-    const SettingSpaceRoot(),
-    const ProfileSpaceRoot(
-      user: User(
-        id: '1',
-        fullName: 'username',
-        displayName: 'displayName',
-      ),
-    ),
-  ];
 
   void setPage(Widget page, String title) {
     pageTitle.value = title;

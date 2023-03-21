@@ -67,7 +67,7 @@ class LogIn extends StatelessWidget {
                     hintText: 'Enter your secure password',
                   ),
                   onSubmitted: (value) async {
-                    _userCredential = await _authentication.verify(
+                    _userCredential = await _authentication.verifyOTP(
                         _confirmationResult, value);
                     print(_userCredential!.additionalUserInfo);
                   },

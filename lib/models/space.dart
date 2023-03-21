@@ -4,10 +4,10 @@ import 'package:uuid/uuid.dart';
 
 class Space {
   String uuid = const Uuid().v1();
-  final User createdBy;
+  final String createdBy;
   final Timestamp createdTime;
-  final List<User> admins;
-  final List<User> users;
+  final List<String> admins;
+  final List<String> users;
 
   Space({
     required this.createdBy,

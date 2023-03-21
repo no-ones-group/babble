@@ -8,16 +8,32 @@ class MessageSpaceAPI {
 
   void getSpace(String uuid) {}
 
-  void getSpaces(User user) {}
+  Future<List<Space>> getSpaces(User user) async {
+    List<Space> spaces = [];
+    for (var space in user.spaces) {
+      var data = await firestoreInstance
+          .collection('messageSpaces')
+          .doc(space.uuid)
+          .get();
+      spaces.add(Space.fromFirebase(
+        uuid: data.get('uuid'),
+        createdBy: data.get('createdBy'),
+        createdTime: data.get('createdTime'),
+        admins: data.get('admins'),
+        users: data.get('users'),
+      ));
+    }
+    return spaces;
+  }
 
   Future<void> createSpace(Space space) async {
     await firestoreInstance.collection('messageSpaces').doc(space.uuid).set({
-      'admin': [firestoreInstance.collection('users').doc(space.createdBy.id)],
-      'users': [firestoreInstance.collection('users').doc(space.createdBy.id)],
+      'admin': [firestoreInstance.doc(space.createdBy)],
+      'users': [firestoreInstance.doc(space.createdBy)],
     });
     List<DocumentReference> docs = [];
-    for (User user in space.users) {
-      docs.add(firestoreInstance.collection('users').doc(user.id));
+    for (String user in space.users) {
+      docs.add(firestoreInstance.doc(user));
     }
     await firestoreInstance
         .collection('messageSpaces')

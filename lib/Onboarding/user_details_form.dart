@@ -1,11 +1,16 @@
+import 'package:babble/api/user_api.dart';
+import 'package:babble/models/user.dart';
 import 'package:babble/ui/root.dart';
+import 'package:babble/ui/root_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UserDetailsForm extends StatelessWidget {
   UserDetailsForm({super.key});
-  final _displayNameController = TextEditingController();
-  final _fullNameController = TextEditingController();
+  final _displayNameTEController = TextEditingController();
+  final _fullNameTEController = TextEditingController();
+  final _rootController = Get.find<RootController>();
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +20,28 @@ class UserDetailsForm extends StatelessWidget {
           TextField(
             style: GoogleFonts.poppins(),
             decoration: const InputDecoration(hintText: 'Display Name'),
-            controller: _displayNameController,
+            controller: _displayNameTEController,
           ),
           TextField(
             style: GoogleFonts.poppins(),
             decoration: const InputDecoration(hintText: 'Full Name'),
-            controller: _fullNameController,
+            controller: _fullNameTEController,
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
+              var nav = Navigator.of(context);
               Navigator.popUntil(context, (route) => true);
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: ((context) => Root())));
+              User user = User(
+                id: _rootController.loggedInUserPhoneNumber,
+                fullName: _fullNameTEController.text,
+                displayName: _displayNameTEController.text,
+              );
+              var isRegistered =
+                  !(await UserAPI().isUserAlreadyRegistered(user.id));
+              if (!isRegistered) {
+                UserAPI().createUser(user);
+              }
+              await nav.push(MaterialPageRoute(builder: ((context) => Root())));
             },
             child: const Text('Save'),
           ),
