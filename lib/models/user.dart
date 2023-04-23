@@ -5,7 +5,7 @@ class User {
   final String? profilePicLink;
   final String fullName;
   final String displayName;
-  final List<Space> spaces;
+  final List<String> spaces;
 
   const User({
     required this.id,
@@ -14,4 +14,12 @@ class User {
     required this.displayName,
     this.spaces = const [],
   });
+}
+
+enum UserField {
+  id,
+  profilePicLink,
+  fullName,
+  displayName,
+  spaces,
 }

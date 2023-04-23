@@ -16,9 +16,6 @@ class ChatSpaceController extends GetxController {
   @override
   void onInit() async {
     user = await UserAPI().getUser(rootController.loggedInUserPhoneNumber);
-    for (var spaces in user.spaces) {
-      log(spaces.uuid);
-    }
     spaces = await MessageSpaceAPI().getSpaces(user);
     super.onInit();
   }

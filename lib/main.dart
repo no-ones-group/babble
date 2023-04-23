@@ -1,19 +1,12 @@
-import 'dart:developer';
-
 import 'package:babble/Onboarding/new_login_screen.dart';
-import 'package:babble/api/user_api.dart';
-import 'package:babble/models/space.dart';
-import 'package:babble/models/user.dart';
 import 'package:babble/ui/root.dart';
 import 'package:babble/ui/root_controller.dart';
 import 'package:babble/ui/sidebar/sidebar_controller.dart';
 import 'package:babble/ui/space/chat_space/chat_space_controller.dart';
 import 'package:babble/ui/space/profile_space/profile_space_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:uuid/uuid.dart';
 
 enum Configuration {
   debug,

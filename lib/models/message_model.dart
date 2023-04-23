@@ -25,6 +25,17 @@ class MessageModel {
   });
 }
 
+enum MessageField {
+  id,
+  content,
+  messageType,
+  replyingTo,
+  by,
+  to,
+  sentTime,
+  chatSpace,
+}
+
 enum MessageType {
   text,
   image,

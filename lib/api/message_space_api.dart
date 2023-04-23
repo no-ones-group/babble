@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:babble/api/user_api.dart';
 import 'package:babble/models/space.dart';
 import 'package:babble/models/user.dart';
@@ -11,29 +13,21 @@ class MessageSpaceAPI {
   Future<List<Space>> getSpaces(User user) async {
     List<Space> spaces = [];
     for (var space in user.spaces) {
-      var data = await firestoreInstance
-          .collection('messageSpaces')
-          .doc(space.uuid)
-          .get();
-      spaces.add(Space.fromFirebase(
-        uuid: data.get('uuid'),
-        createdBy: data.get('createdBy'),
-        createdTime: data.get('createdTime'),
-        admins: data.get('admins'),
-        users: data.get('users'),
-      ));
+      log('==>> $space');
+      spaces.add(Space.fromFirestore(
+          firestoreInstance.collection('messageSpaces').doc(space)));
     }
     return spaces;
   }
 
   Future<void> createSpace(Space space) async {
     await firestoreInstance.collection('messageSpaces').doc(space.uuid).set({
-      'admin': [firestoreInstance.doc(space.createdBy)],
-      'users': [firestoreInstance.doc(space.createdBy)],
+      'admin': [firestoreInstance.doc(space.createdBy.id)],
+      'users': [firestoreInstance.doc(space.createdBy.id)],
     });
     List<DocumentReference> docs = [];
-    for (String user in space.users) {
-      docs.add(firestoreInstance.doc(user));
+    for (var user in space.users) {
+      docs.add(user);
     }
     await firestoreInstance
         .collection('messageSpaces')

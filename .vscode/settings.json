@@ -1,4 +1,6 @@
 {
     "dart.flutterSdkPath": "D:\\finalyearproject\\flutter",
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 160,
     "java.configuration.updateBuildConfiguration": "disabled"
 }

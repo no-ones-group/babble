@@ -4,10 +4,10 @@ import 'package:uuid/uuid.dart';
 
 class Space {
   String uuid = const Uuid().v1();
-  final String createdBy;
-  final Timestamp createdTime;
-  final List<String> admins;
-  final List<String> users;
+  late final DocumentReference createdBy;
+  late final Timestamp createdTime;
+  late final List<DocumentReference> admins;
+  late final List<DocumentReference> users;
 
   Space({
     required this.createdBy,
@@ -16,11 +16,25 @@ class Space {
     required this.users,
   });
 
-  Space.fromFirebase({
-    required this.uuid,
-    required this.createdBy,
-    required this.createdTime,
-    required this.admins,
-    required this.users,
-  });
+  Space.fromFirestore(DocumentReference docRef) {
+    docRef.get().then((data) {
+      uuid = data.get(SpaceField.uuid.name) as String;
+      createdBy = (data.get(SpaceField.createdBy.name) as DocumentReference);
+      createdTime = data.get(SpaceField.createdTime) as Timestamp;
+      admins = (data.get(SpaceField.admin.name) as List)
+          .map((item) => item as DocumentReference)
+          .toList();
+      users = (data.get(SpaceField.users.name) as List)
+          .map((item) => item as DocumentReference)
+          .toList();
+    });
+  }
+}
+
+enum SpaceField {
+  uuid,
+  createdBy,
+  createdTime,
+  admin,
+  users,
 }

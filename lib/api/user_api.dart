@@ -13,8 +13,12 @@ class UserAPI {
       var data = await _instance.collection('users').doc(phoneNumber).get();
       User user = User(
         id: phoneNumber,
-        displayName: data.get('displayName'),
-        fullName: data.get('fullName'),
+        profilePicLink: data.get(UserField.profilePicLink.name),
+        displayName: data.get(UserField.displayName.name),
+        fullName: data.get(UserField.fullName.name),
+        spaces: (data.get(UserField.spaces.name) as List)
+            .map((item) => item as String)
+            .toList(),
       );
       return user;
     }
@@ -27,11 +31,11 @@ class UserAPI {
 
   void createUser(User user) {
     _instance.collection('users').doc(user.id).set({
-      'displayName': user.displayName,
-      'id': user.id,
-      'profilePicLink': user.profilePicLink,
-      'spaces': [],
-      'fullName': user.fullName,
+      UserField.displayName.name: user.displayName,
+      UserField.id.name: user.id,
+      UserField.profilePicLink.name: user.profilePicLink,
+      UserField.spaces.name: [],
+      UserField.fullName.name: user.fullName,
     });
   }
 
@@ -40,13 +44,13 @@ class UserAPI {
 
   Future<void> addSpace(String userId, Space space) async {
     await _instance.collection('users').doc(userId).update({
-      'spaces': FieldValue.arrayUnion(
+      UserField.spaces.name: FieldValue.arrayUnion(
           [_instance.collection('messageSpaces').doc(space.uuid)])
     });
   }
 
   Future<void> createSpace(Space space) async {
     await MessageSpaceAPI().createSpace(space);
-    await addSpace(space.createdBy, space);
+    await addSpace(space.createdBy.id, space);
   }
 }

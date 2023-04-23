@@ -28,68 +28,7 @@ class MessageSpaceBody extends StatelessWidget {
             child: Flexible(
               child: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    Message(
-                      messageModel: MessageModel(
-                        id: '1',
-                        messageType: MessageType.text,
-                        content: 'content',
-                        by: _rootController.user,
-                        sentTime: Timestamp.now(),
-                        chatSpace: Space(
-                          createdBy: _rootController.user.id,
-                          createdTime: Timestamp.now(),
-                          admins: [],
-                          users: [_rootController.user.id],
-                        ),
-                      ),
-                    ),
-                    Message(
-                      messageModel: MessageModel(
-                        id: '1',
-                        messageType: MessageType.image,
-                        sentTime: Timestamp.now(),
-                        content: 'content',
-                        by: _rootController.user,
-                        chatSpace: Space(
-                          createdBy: _rootController.user.id,
-                          createdTime: Timestamp.now(),
-                          admins: [],
-                          users: [_rootController.user.id],
-                        ),
-                      ),
-                    ),
-                    Message(
-                      messageModel: MessageModel(
-                        id: '1',
-                        messageType: MessageType.audio,
-                        sentTime: Timestamp.now(),
-                        content: 'content',
-                        by: _rootController.user,
-                        chatSpace: Space(
-                          createdBy: _rootController.user.id,
-                          createdTime: Timestamp.now(),
-                          admins: [],
-                          users: [_rootController.user.id],
-                        ),
-                      ),
-                    ),
-                    Message(
-                      messageModel: MessageModel(
-                        id: '1',
-                        messageType: MessageType.video,
-                        content: 'content',
-                        sentTime: Timestamp.now(),
-                        by: _rootController.diffUser,
-                        chatSpace: Space(
-                          createdBy: _rootController.user.id,
-                          createdTime: Timestamp.now(),
-                          admins: [],
-                          users: [_rootController.user.id],
-                        ),
-                      ),
-                    ),
-                  ],
+                  children: [],
                 ),
               ),
             ),
