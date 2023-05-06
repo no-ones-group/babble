@@ -1,9 +1,12 @@
 import 'package:babble/Onboarding/new_otp_screen.dart';
+import 'package:babble/ui/root_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NewLogin extends StatelessWidget {
-  const NewLogin({super.key});
+class NewLoginScreen extends StatelessWidget {
+  final _rootController = Get.find<RootController>();
+  NewLoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,7 @@ class NewLogin extends StatelessWidget {
                   child: TextField(
                     style: const TextStyle(color: Colors.white),
                     onSubmitted: (value) {
+                      _rootController.loggedInUserPhoneNumber = value;
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => NewOTPScreen(value)));
                     },

@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "783055436531",
-    "project_id": "scopes-ea94a",
-    "storage_bucket": "scopes-ea94a.appspot.com"
+    "project_number": "830437240435",
+    "project_id": "babble-8e028",
+    "storage_bucket": "babble-8e028.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:783055436531:android:f1c48ec25fdc48636e9586",
+        "mobilesdk_app_id": "1:830437240435:android:3c5b46eaa1761f0804c406",
         "android_client_info": {
           "package_name": "com.example.babble"
         }
       },
       "oauth_client": [
         {
-          "client_id": "783055436531-frm78a9j9j9hlfihp5jt12u7fhngid8o.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.babble",
-            "certificate_hash": "e2c0f6fdb9479ff80fbc99b3e7bf18f18c98af9a"
-          }
-        },
-        {
-          "client_id": "783055436531-j0jjk7ekphk0q1muabr5ipt0jnbug99n.apps.googleusercontent.com",
+          "client_id": "830437240435-vfprvb6h37vpdojdr65eafskluif3u84.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAZ9VU2sevyc8tG3cZvK9Vf-ObS4DRr4Ik"
+          "current_key": "AIzaSyDEcSEkqIOyBmTJt_WhKy3enmVHGiTFRlQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "783055436531-j0jjk7ekphk0q1muabr5ipt0jnbug99n.apps.googleusercontent.com",
+              "client_id": "830437240435-vfprvb6h37vpdojdr65eafskluif3u84.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
