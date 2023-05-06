@@ -13,39 +13,36 @@ class UserAPI {
       var data = await _instance.collection('users').doc(phoneNumber).get();
       User user = User(
         id: phoneNumber,
-        profilePicLink: data.get(UserField.profilePicLink.name),
-        displayName: data.get(UserField.displayName.name),
-        fullName: data.get(UserField.fullName.name),
-        spaces: (data.get(UserField.spaces.name) as List)
-            .map((item) => item as String)
+        profilePicLink: data.get(User.profilePicLinkField),
+        displayName: data.get(User.displayNameField),
+        fullName: data.get(User.fullNameField),
+        spaces: (data.get(User.spacesField) as List)
+            .map((item) => item as DocumentReference)
             .toList(),
       );
       return user;
     }
-    return User(
-      id: phoneNumber,
-      displayName: 'defaultData',
-      fullName: 'defaultData',
-    );
+    return User.defaultV1();
   }
 
   void createUser(User user) {
     _instance.collection('users').doc(user.id).set({
-      UserField.displayName.name: user.displayName,
-      UserField.id.name: user.id,
-      UserField.profilePicLink.name: user.profilePicLink,
-      UserField.spaces.name: [],
-      UserField.fullName.name: user.fullName,
+      User.displayNameField: user.displayName,
+      User.idField: user.id,
+      User.profilePicLinkField: user.profilePicLink,
+      User.spacesField: [],
+      User.fullNameField: user.fullName,
     });
   }
 
   Future<bool> isUserAlreadyRegistered(String phoneNumber) async =>
-      (await _instance.collection('users').doc(phoneNumber).get()).exists;
+      (await _instance.collection(User.usersCollection).doc(phoneNumber).get())
+          .exists;
 
   Future<void> addSpace(String userId, Space space) async {
-    await _instance.collection('users').doc(userId).update({
-      UserField.spaces.name: FieldValue.arrayUnion(
-          [_instance.collection('messageSpaces').doc(space.uuid)])
+    await _instance.collection(User.usersCollection).doc(userId).update({
+      User.spacesField: FieldValue.arrayUnion(
+          [_instance.collection(Space.spacesCollection).doc(space.uuid)])
     });
   }
 

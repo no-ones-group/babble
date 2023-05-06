@@ -4,25 +4,42 @@ import 'space.dart';
 import 'user.dart';
 
 class MessageModel {
-  final String id;
-  final String content;
-  final MessageType messageType;
-  final String? replyingTo;
-  final User by;
-  final User? to;
-  final Timestamp sentTime;
-  final Space chatSpace;
+  late final String id;
+  late final String content;
+  late final MessageType messageType;
+  late final DocumentReference? replyingTo;
+  late final DocumentReference by;
+  late final Timestamp sentTime;
+  late final DocumentReference chatSpace;
 
-  const MessageModel({
+  static String get idField => 'id';
+  static String get contentField => 'content';
+  static String get messageTypeField => 'messageType';
+  static String get replyingToField => 'replyingTo';
+  static String get byField => 'by';
+  static String get sentTimeField => 'sentTime';
+  static String get chatSpaceField => 'chatSpace';
+
+  MessageModel({
     required this.id,
     required this.content,
     this.messageType = MessageType.text,
     this.replyingTo,
     required this.by,
-    this.to,
     required this.sentTime,
     required this.chatSpace,
   });
+
+  MessageModel.fromObject(Map<String, dynamic> data) {
+    id = data[idField];
+    content = data[contentField];
+    messageType =
+        MessageType.values.firstWhere((e) => e.name == data[messageTypeField]);
+    replyingTo = data[replyingToField] as DocumentReference?;
+    by = data[byField] as DocumentReference;
+    sentTime = data[sentTimeField] as Timestamp;
+    chatSpace = data[chatSpaceField] as DocumentReference;
+  }
 }
 
 enum MessageField {
@@ -31,7 +48,6 @@ enum MessageField {
   messageType,
   replyingTo,
   by,
-  to,
   sentTime,
   chatSpace,
 }

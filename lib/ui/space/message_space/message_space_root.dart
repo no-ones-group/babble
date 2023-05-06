@@ -1,18 +1,64 @@
 import 'package:babble/constants/root_constants.dart';
+import 'package:babble/constants/space_root_constants.dart';
+import 'package:babble/models/message_model.dart';
+import 'package:babble/models/user.dart';
+import 'package:babble/ui/extended_sidebar/extended_sidebar_controller.dart';
+import 'package:babble/ui/root_controller.dart';
 import 'package:babble/ui/space/message_space/message_space_body.dart';
+import 'package:babble/ui/space/message_space/message_space_footer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 class MessageSpaceRoot extends StatelessWidget {
-  const MessageSpaceRoot({super.key});
+  final _rootController = Get.find<RootController>();
+  final _extendedSidebarController = Get.find<ExtendedSidebarController>();
+  MessageSpaceRoot({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width - RootConstants().sidebarWidth,
-      child: Column(
-        children: [
-          MessageSpaceBody(),
-        ],
+      color: Colors.red,
+      height: MediaQuery.of(context).size.height,
+      width: RootConstants().spaceWidth,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Obx(() =>
+              Text(_extendedSidebarController.selectedChat.value.spaceName)),
+          backgroundColor: SpaceRootConstants().headerColor,
+          toolbarHeight: RootConstants.headerHeight,
+          elevation: 0,
+        ),
+        body: Container(
+          color: SpaceRootConstants().containerColor,
+          child: Column(
+            children: [
+              MessageSpaceBody(),
+              MessageSpaceFooter(),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            var uuid = const Uuid().v4();
+            _extendedSidebarController.selectedChat.value.messagesCollection
+                .add({
+              MessageModel.byField:
+                  FirebaseFirestore.instance.doc('${User.usersCollection}/2'),
+              MessageModel.chatSpaceField: _extendedSidebarController
+                  .selectedChat.value.spaceDocumentReference,
+              MessageModel.contentField: uuid,
+              MessageModel.idField: uuid,
+              MessageModel.messageTypeField: MessageType.text.name,
+              MessageModel.replyingToField: null,
+              MessageModel.sentTimeField: Timestamp.now(),
+            });
+          },
+          isExtended: true,
+          mini: true,
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

@@ -10,7 +10,6 @@ class MessageAPI {
     await firebaseFirestoreInstance.collection('Message').doc(uuid).set({
       MessageField.id.name: uuid,
       MessageField.by.name: msg.by,
-      MessageField.to.name: msg.to,
       MessageField.messageType.name: msg.messageType,
       MessageField.replyingTo.name: msg.replyingTo,
       MessageField.chatSpace.name: msg.chatSpace,

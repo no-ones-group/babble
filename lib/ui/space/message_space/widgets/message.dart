@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:babble/models/message_model.dart';
 import 'package:babble/ui/root_controller.dart';
+import 'package:babble/ui/space/message_space/widgets/custom_rect_tween.dart';
+import 'package:babble/ui/space/message_space/widgets/hero_dialog_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +19,7 @@ class Message extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoggedInUser = messageModel.by == _rootController.user;
+    bool isLoggedInUser = messageModel.by.id == _rootController.user.id;
     return Align(
       alignment: isLoggedInUser ? Alignment.bottomRight : Alignment.bottomLeft,
       child: Container(
@@ -109,13 +113,33 @@ class Content extends StatelessWidget {
               ),
             )
           : messageType == MessageType.image
-              ? Container(
-                  height: 200,
-                  width: 250,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        HeroDialogRoute(
+                          builder: (context) => ContentDetails(
+                            content: content,
+                            messageType: MessageType.image,
+                          ),
+                        ));
+                  },
+                  child: Hero(
+                    tag: MessageType.image,
+                    createRectTween: (begin, end) {
+                      return CustomRectTween(begin: begin!, end: end!);
+                    },
+                    child: Container(
+                      height: 200,
+                      width: 250,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Image.memory(
+                        base64.decode(content),
+                      ),
+                    ),
                   ),
-                  child: Placeholder(),
                 )
               : messageType == MessageType.video
                   ? Container(
@@ -129,6 +153,43 @@ class Content extends StatelessWidget {
                   : const SizedBox(
                       child: Text('Un-Identified MessageType'),
                     ),
+    );
+  }
+}
+
+class ContentDetails extends StatelessWidget {
+  final String content;
+  final MessageType messageType;
+  const ContentDetails(
+      {super.key, required this.content, required this.messageType});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Hero(
+          tag: MessageType.image,
+          createRectTween: (begin, end) {
+            return CustomRectTween(begin: begin!, end: end!);
+          },
+          child: Material(
+            elevation: 2,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SafeArea(
+                  child: Image.memory(
+                    base64.decode(content),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,31 +1,31 @@
+import 'package:babble/api/user_api.dart';
 import 'package:babble/models/user.dart';
-import 'package:babble/ui/space/chat_space/chat_space_root.dart';
-import 'package:babble/ui/space/profile_space/profile_space_root.dart';
-import 'package:babble/ui/space/setting_space/setting_space_root.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RootController extends GetxController {
   var pageTitle = ''.obs;
-  String loggedInUserPhoneNumber = 'e6c0fb70-a57f-11ed-8c9c-ad33c9494c13';
+  String loggedInUserPhoneNumber = '1';
   Widget pageContent = const SizedBox(
     child: Center(
       child: Text('Welcome to Babble Land!'),
     ),
   );
-  var user = const User(
-    id: '1',
-    fullName: 'username',
-    displayName: 'displayName',
-  );
-  var diffUser = const User(
-    id: '2',
-    fullName: 'username2',
-    displayName: 'displayName2',
-  );
+  var user = User.defaultV1();
+  late DocumentReference userDoc;
 
   void setPage(Widget page, String title) {
     pageTitle.value = title;
     pageContent = page;
+  }
+
+  @override
+  void onInit() async {
+    userDoc = FirebaseFirestore.instance
+        .collection('users')
+        .doc(loggedInUserPhoneNumber);
+    user = await UserAPI().getUser(loggedInUserPhoneNumber);
+    super.onInit();
   }
 }
