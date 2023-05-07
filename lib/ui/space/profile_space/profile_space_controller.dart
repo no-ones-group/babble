@@ -5,4 +5,6 @@ import 'package:get/get.dart';
 
 class ProfileSpaceController extends GetxController {
   final RootController rootController = Get.find<RootController>();
+  
+
 }
